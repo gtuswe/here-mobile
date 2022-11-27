@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:here/view/home/home_page.dart';
+import 'package:here/view/class/class_details_page.dart';
 
 void main() {
   runApp(const Here());
@@ -17,7 +17,7 @@ class Here extends StatelessWidget {
         colorSchemeSeed: const Color(0xff6750a4),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const ClassDetailsPage(),
     );
   }
 }
