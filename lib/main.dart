@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:here/view/main_page.dart';
+import 'package:here/view/routes.dart';
 
 void main() {
   runApp(const Here());
@@ -27,7 +27,7 @@ class _HereState extends State<Here> {
       debugShowCheckedModeBanner: false,
       theme: getThemeData(true),
       darkTheme: getThemeData(false),
-      home: const MainPage(),
+      routes: Routes.routes,
     );
   }
 }

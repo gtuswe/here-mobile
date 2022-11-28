@@ -71,7 +71,7 @@ class _MainPageState extends State<MainPage> {
       );
 
   void _handleQrScanButton() {
-    // Navigator.of(context).pushNamed('/qr_scan');
+    Navigator.of(context).pushNamed('/qr_scan');
   }
 
   Widget get _qrScannerButton => Padding(
