@@ -11,7 +11,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _pageIndex = 0;
+  int _pageIndex = 0; // for indexed stack
+  int _selectedIndex = 0; // for navigation bar
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +38,18 @@ class _MainPageState extends State<MainPage> {
         centerTitle: true,
       );
 
-  void _onTapBottomBar(int value) {
+  void _onTapNavigationBar(int value) {
     setState(() {
+      _selectedIndex = value;
+
+      if (value > 2) value--; // skip qr button
       _pageIndex = value;
     });
   }
 
   Widget get _bottomBar => NavigationBar(
-        selectedIndex: _pageIndex,
-        onDestinationSelected: _onTapBottomBar,
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: _onTapNavigationBar,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: [
           const NavigationDestination(
