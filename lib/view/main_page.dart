@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:here/view/activity/activity_page.dart';
+import 'package:here/view/activity/badge_widget.dart';
 import 'package:here/view/calendar/calendar_page.dart';
 import 'package:here/view/home/home_page.dart';
 import 'package:here/view/profile/profile_page.dart';
@@ -13,6 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _pageIndex = 0; // for indexed stack
   int _selectedIndex = 0; // for navigation bar
+  bool hasNotifications = false; // TODO: make it functional
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class _MainPageState extends State<MainPage> {
           children: const <Widget>[
             HomePage(),
             CalendarPage(),
-            Center(child: Text("No notifications.")),
+            ActivityPage(),
             ProfilePage(),
           ],
         ),
@@ -58,9 +61,12 @@ class _MainPageState extends State<MainPage> {
               icon: Icon(Icons.calendar_month), label: 'Calendar'),
           _qrScannerButton,
           NavigationDestination(
-              icon: Icon(Icons.notifications), label: "Activity"),
-          NavigationDestination(
-              icon: Icon(Icons.person_rounded), label: "Profile"),
+              icon: hasNotifications
+                  ? const Badge(child: Icon(Icons.notifications))
+                  : const Icon(Icons.notifications),
+              label: 'Activity'),
+          const NavigationDestination(
+              icon: Icon(Icons.person_rounded), label: 'Profile'),
         ],
       );
 
