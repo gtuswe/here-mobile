@@ -47,14 +47,28 @@ class _MainPageState extends State<MainPage> {
         selectedIndex: _pageIndex,
         onDestinationSelected: _onTapBottomBar,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_filled), label: "Home"),
-          NavigationDestination(
-              icon: Icon(Icons.calendar_month), label: "Calendar"),
+        destinations: [
+          const NavigationDestination(
+              icon: Icon(Icons.home_filled), label: 'Home'),
+          const NavigationDestination(
+              icon: Icon(Icons.calendar_month), label: 'Calendar'),
+          _qrScannerButton,
           NavigationDestination(
               icon: Icon(Icons.notifications), label: "Activity"),
           NavigationDestination(
               icon: Icon(Icons.person_rounded), label: "Profile"),
         ],
+      );
+
+  void _handleQrScanButton() {
+    // Navigator.of(context).pushNamed('/qr_scan');
+  }
+
+  Widget get _qrScannerButton => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: FloatingActionButton(
+            elevation: 0,
+            onPressed: _handleQrScanButton,
+            child: const Icon(Icons.qr_code_scanner)),
       );
 }
