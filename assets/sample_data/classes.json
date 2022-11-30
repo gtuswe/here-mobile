@@ -1,0 +1,64 @@
+{
+  "classes": [
+    {
+      "id": 0,
+      "name": "Software Engineering",
+      "image": "https://picsum.photos/48/48",
+      "mostRecentFiveAttendance": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Programming Languages",
+      "image": "https://picsum.photos/48/48",
+      "mostRecentFiveAttendance": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Algorithm Design",
+      "image": "https://picsum.photos/48/48",
+      "mostRecentFiveAttendance": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Logic Circuits",
+      "image": "https://picsum.photos/48/48",
+      "mostRecentFiveAttendance": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Data Structures",
+      "image": "https://picsum.photos/48/48",
+      "mostRecentFiveAttendance": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    }
+  ]
+}
