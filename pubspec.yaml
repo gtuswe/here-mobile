@@ -37,8 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   kartal: ^2.5.1
   timelines: ^0.1.0
+
   auto_size_text: ^3.0.0
   flutter_svg: ^1.1.6
+
 
 dev_dependencies:
   flutter_test:
