@@ -11,7 +11,7 @@ class Class {
   Map<String, dynamic> toJson() => _$ClassToJson(this);
 
   // JSON fields
-  int? id;
+  int id;
   String? name;
   String? image;
   List<bool>? mostRecentFiveAttendance;
@@ -27,7 +27,7 @@ class Class {
 
   // Constructor
   Class({
-    this.id,
+    required this.id,
     this.name,
     this.image,
     this.mostRecentFiveAttendance,

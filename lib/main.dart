@@ -14,7 +14,7 @@ class Here extends StatefulWidget {
 
 class _HereState extends State<Here> {
   ThemeData getThemeData(bool isLightMode,
-          {bool isMaterial3 = true, Color colorSeed = Colors.blue}) =>
+          {bool isMaterial3 = true, Color colorSeed = Colors.deepPurpleAccent}) =>
       ThemeData(
           colorSchemeSeed: colorSeed,
           useMaterial3: isMaterial3,

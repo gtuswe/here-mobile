@@ -37,32 +37,106 @@ class _ClassListState extends State<ClassList> {
         itemBuilder: (context, index) {
           final Class classInstance = classes[index];
 
-          return _classCard(classInstance);
+          return ClassTile(classInstance: classInstance, index: index);
         });
   }
 
-  Widget _classCard(Class classInstance) {
-    return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                const ClassDetailsPage(/*classInstance: classInstance*/)),
-      ),
+}
+
+class ClassTile extends StatelessWidget {
+  final int index;
+  final Class classInstance;
+
+  const ClassTile(
+      {super.key, required this.classInstance, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 9.0),
       child: Card(
-        child: Column(
-          children: [
-            classInstance.image != null
-                ? CachedNetworkImage(
-                    imageUrl: classInstance.image!,
-                    height: 210,
-                    fit: BoxFit.fill)
-                : const Placeholder(),
-            Text(classInstance.name ?? ""),
-            Text(classInstance.destination ?? ""),
-          ],
+        elevation: 0,
+        color: const Color(0xfffffbfe),
+        child: ListTile(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const ClassDetailsPage(/*classInstance: classInstance*/)),
+          ),
+          visualDensity: const VisualDensity(vertical: 4),
+          leading: _leading,
+          title: _title,
+          subtitle: _subtitle,
+          trailing: _trailing,
         ),
       ),
     );
   }
+
+  Widget get _leading => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              (index + 1).toString().padLeft(2, '0'),
+              style: TextStyle(
+                  color: Colors.grey.shade700, fontWeight: FontWeight.w500),
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: CachedNetworkImage(
+              width: 72,
+              height: 72,
+              imageUrl: classInstance.image ?? '',
+              errorWidget: (context, url, error) =>
+                  const Icon(Icons.broken_image),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      );
+
+  Widget get _title => Text(
+        classInstance.name ?? '',
+        softWrap: false,
+      );
+
+  Widget get _subtitle {
+    List<Widget> rowItems = [];
+    Widget absent = const Icon(
+      Icons.cancel,
+      color: Colors.redAccent,
+      size: 16,
+    );
+    Widget attended = const Icon(
+      Icons.check_circle,
+      color: Colors.lightGreen,
+      size: 16,
+    );
+
+    classInstance.mostRecentFiveAttendance ??= List.filled(5, false);
+    for (var element in classInstance.mostRecentFiveAttendance!) {
+      rowItems.add(
+        element ? attended : absent,
+      );
+      rowItems.add(const Spacer());
+    }
+    rowItems.add(const Spacer(
+      flex: 6,
+    ));
+
+    return Row(
+      children: rowItems,
+    );
+  }
+
+  Widget get _trailing => const SizedBox(
+        height: double.infinity,
+        child: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+      );
 }
