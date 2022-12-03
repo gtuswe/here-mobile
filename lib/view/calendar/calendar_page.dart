@@ -10,6 +10,8 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Center(
+      child: Text('Calendar!'),
+    );
   }
 }
