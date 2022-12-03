@@ -14,6 +14,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _schoolNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
@@ -104,6 +105,26 @@ class _RegisterPageState extends State<RegisterPage> {
                       Expanded(
                         flex: 8,
                         child: TextFormField(
+                          controller: _schoolNumberController,
+                          keyboardType: TextInputType.number,
+                          autocorrect: true,
+                          textInputAction: TextInputAction.next,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 20),
+                            fillColor: Colors.transparent,
+                            filled: true,
+                            hintText: "School number",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (String? data) {
+                            if (data!.isEmpty) return "*";
+                            return null;
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        flex: 8,
+                        child: TextFormField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           autocorrect: true,
@@ -155,7 +176,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             border: OutlineInputBorder(),
                           ),
                           validator: (String? data) {
-                            if (data != _passwordController.text) return "Üstte girilen şifre ile aynı şifreyi giriniz";
+                            if (data != _passwordController.text) {
+                              return "Üstte girilen şifre ile aynı şifreyi giriniz";
+                            }
                             return null;
                           },
                           obscureText: true,
