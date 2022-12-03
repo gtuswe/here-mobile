@@ -23,6 +23,7 @@ class _UpcomingClassListState extends State<UpcomingClassList>
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return ClassFutureBuilder(
       classes: upcomingClasses,
       listBuilder: _buildUpcomingClassList,
