@@ -41,6 +41,6 @@ class Class {
       dateTime != null ? DateTime.parse(dateTime) : null;
 
   static String? _dateTimeToString(DateTime? dateTime) => (dateTime != null)
-      ? (DateFormat('y-M-dd H:m:s').format(dateTime))
+      ? (DateFormat('y-M-dd H:m').format(dateTime))
       : (null);
 }
