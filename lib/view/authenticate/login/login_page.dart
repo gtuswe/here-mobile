@@ -140,27 +140,27 @@ class _LoginPageState extends State<LoginPage> {
                                 TextButton(onPressed: () {}, child: const Text("Sign Up"))
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Text(
-                                "                Or Sign In With                ",
-                                style: context.textTheme.labelSmall!.copyWith(color: Colors.grey),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: ElevatedButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.g_mobiledata,
-                                    color: Colors.red,
-                                  ),
-                                  label: Text("Google",
-                                      style: context.textTheme.labelLarge!.copyWith(color: Colors.black)),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                  )),
-                            )
+                            // Padding(
+                            //   padding: const EdgeInsets.only(top: 20),
+                            //   child: Text(
+                            //     "                Or Sign In With                ",
+                            //     style: context.textTheme.labelSmall!.copyWith(color: Colors.grey),
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(top: 20),
+                            //   child: ElevatedButton.icon(
+                            //       onPressed: () {},
+                            //       icon: const Icon(
+                            //         Icons.g_mobiledata,
+                            //         color: Colors.red,
+                            //       ),
+                            //       label: Text("Google",
+                            //           style: context.textTheme.labelLarge!.copyWith(color: Colors.black)),
+                            //       style: ElevatedButton.styleFrom(
+                            //         primary: Colors.white,
+                            //       )),
+                            // )
                           ],
                         ),
                       ),
