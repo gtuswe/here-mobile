@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "name": "Ozan",
+            "surname": "Armağan",
+            "schoolNumber": "200104004001",
+            "mail": "ozan@gtu.edu.tr",
+            "password": "ozan1234"
+        },
+        {
+            "name": "Atacan",
+            "surname": "Başaran",
+            "schoolNumber": "200104004008",
+            "mail": "a.basaran2020@gtu.edu.tr",
+            "password": "atacan2002"
+        }
+    ]
+}

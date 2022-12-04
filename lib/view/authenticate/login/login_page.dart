@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:here/service/authentication.dart';
+import 'package:here/view/authenticate/register/register_page.dart';
+import 'package:here/view/main_page.dart';
 import 'package:kartal/kartal.dart';
 
 class LoginPage extends StatefulWidget {
@@ -107,12 +110,13 @@ class _LoginPageState extends State<LoginPage> {
                                   if (_formKey.currentState?.validate() ?? false) {
                                     _changeLoading();
                                     FocusManager.instance.primaryFocus?.unfocus();
-                                    const result =
-                                        "deneme"; //final result = await _authService.signIn(_emailController.text, _passwordController.text);
+                                    final result = await AuthenticationService()
+                                        .checkUser(_emailController.text, _passwordController.text);
                                     _changeLoading();
 
-                                    if (result != null) {
+                                    if (result == true) {
                                       _errorText = "";
+                                      context.navigateToPage(const MainPage());
                                     } else {
                                       setState(() {
                                         _errorText = "Kullanıcı adı veya şifre geçersiz";
@@ -130,6 +134,10 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
+                            Text(
+                              _errorText,
+                              style: context.textTheme.bodySmall!.copyWith(color: Colors.red),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -137,30 +145,13 @@ class _LoginPageState extends State<LoginPage> {
                                   "Don't have an account?",
                                   style: context.textTheme.labelSmall!.copyWith(color: Colors.grey),
                                 ),
-                                TextButton(onPressed: () {}, child: const Text("Sign Up"))
+                                TextButton(
+                                    onPressed: () {
+                                      context.navigateToPage(const RegisterPage());
+                                    },
+                                    child: const Text("Sign Up"))
                               ],
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 20),
-                            //   child: Text(
-                            //     "                Or Sign In With                ",
-                            //     style: context.textTheme.labelSmall!.copyWith(color: Colors.grey),
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 20),
-                            //   child: ElevatedButton.icon(
-                            //       onPressed: () {},
-                            //       icon: const Icon(
-                            //         Icons.g_mobiledata,
-                            //         color: Colors.red,
-                            //       ),
-                            //       label: Text("Google",
-                            //           style: context.textTheme.labelLarge!.copyWith(color: Colors.black)),
-                            //       style: ElevatedButton.styleFrom(
-                            //         primary: Colors.white,
-                            //       )),
-                            // )
                           ],
                         ),
                       ),

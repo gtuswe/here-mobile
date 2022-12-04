@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:here/service/authentication.dart';
+import 'package:here/view/main_page.dart';
 import 'package:kartal/kartal.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -9,7 +11,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String _errorText = "";
+  final String _errorText = "";
   bool _loading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
@@ -196,17 +198,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                   if (_formKey.currentState?.validate() ?? false) {
                                     _changeLoading();
                                     FocusManager.instance.primaryFocus?.unfocus();
-                                    const result =
-                                        "deneme"; //final result = await _authService.signIn(_emailController.text, _passwordController.text);
+                                    AuthenticationService().insertUser(_nameController.text, _lastNameController.text,
+                                        _schoolNumberController.text, _emailController.text, _passwordController.text);
                                     _changeLoading();
 
-                                    if (result != null) {
-                                      _errorText = "";
-                                    } else {
-                                      setState(() {
-                                        _errorText = "Kullanıcı adı veya şifre geçersiz";
-                                      });
-                                    }
+                                    context.navigateToPage(const MainPage());
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
