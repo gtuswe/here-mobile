@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:here/model/class.dart';
-import 'package:here/model/user.dart';
+import 'package:intl/intl.dart';
 import 'package:kartal/kartal.dart';
 import 'package:timelines/timelines.dart';
 
@@ -82,7 +82,7 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
         contentsBuilder: ((context, index) {
           return Padding(
             padding: const EdgeInsets.all(35),
-            child: Text("Week ${index + 1}"),
+            child: Text("Week ${attendances.length - index}"),
           );
         }),
         itemCount: 6,
@@ -109,7 +109,9 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
                     style: context.textTheme.headline6,
                   ),
                 ),
-                subtitle: const Text("Monday (1.30PM-4.30PM) Z06"),
+                subtitle: Text(
+                  '${DateFormat('EEEE').format(widget.classInstance.upcomingDate!)} - ${widget.classInstance.upcomingDate?.hour}:${widget.classInstance.upcomingDate?.minute}',
+                ),
               ),
             ),
             Expanded(
@@ -137,19 +139,14 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
 
   ListView _participants() {
     return ListView.builder(
-      itemCount: 8,
+      itemCount: widget.classInstance.participants?.length ?? 0,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Card(
           margin: EdgeInsets.zero,
-          /*shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12),
-            topRight: Radius.circular(12),
-          )),*/
           child: ListTile(
-            title: Text(_name),
-            subtitle: Text(_mail),
+            title: Text(widget.classInstance.participants?[index].name ?? ""),
+            subtitle: Text(widget.classInstance.participants?[index].email ?? ""),
             leading: const ClipOval(
               child: Icon(Icons.person), // backendden image yoksa ismi baş harfi olan
             ),
