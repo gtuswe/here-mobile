@@ -40,7 +40,6 @@ class _ClassListState extends State<ClassList> {
           return ClassTile(classInstance: classInstance, index: index);
         });
   }
-
 }
 
 class ClassTile extends StatelessWidget {
@@ -58,12 +57,23 @@ class ClassTile extends StatelessWidget {
         elevation: 0,
         color: const Color(0xfffffbfe),
         child: ListTile(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    const ClassDetailsPage(/*classInstance: classInstance*/)),
-          ),
+          onTap: () async {
+            var classDetail =
+                await ClassService().getClassDetailsById(classInstance.id);
+
+            if (classDetail == null) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Class detail not found!'),
+              ));
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ClassDetailsPage(classInstance: classDetail),
+                  ));
+            }
+          },
           visualDensity: const VisualDensity(vertical: 4),
           leading: _leading,
           title: _title,

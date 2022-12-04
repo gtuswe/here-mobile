@@ -46,10 +46,23 @@ class _UpcomingClassListState extends State<UpcomingClassList>
 
   Widget _classCard(Class classInstance) {
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ClassDetailsPage()),
-      ),
+      onTap: () async {
+        var classDetail =
+        await ClassService().getClassDetailsById(classInstance.id);
+
+        if (classDetail == null) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Class detail not found!'),
+          ));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ClassDetailsPage(classInstance: classDetail),
+              ));
+        }
+      },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -61,7 +74,9 @@ class _UpcomingClassListState extends State<UpcomingClassList>
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6),
-                  child: CachedNetworkImage(width: 140, height: 80,
+                  child: CachedNetworkImage(
+                    width: 140,
+                    height: 80,
                     imageUrl: classInstance.image ?? '',
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.broken_image),
