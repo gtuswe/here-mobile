@@ -10,9 +10,19 @@ class User {
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   // JSON fields
-  int id;
+  int? id;
+  String? name;
+  String? surname;
+  String? mail;
+  String? schoolNumber;
+  String? password; // Silinecek
 
   User({
     required this.id,
-});
+    required this.name,
+    required this.surname,
+    required this.mail,
+    required this.schoolNumber,
+    required this.password,
+  });
 }

@@ -1,6 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:here/service/authentication.dart';
+import 'package:here/view/authenticate/login/login_page.dart';
+import 'package:here/view/authenticate/register/register_page.dart';
 import 'package:kartal/kartal.dart';
 
 class OnboardPage extends StatefulWidget {
@@ -11,6 +14,12 @@ class OnboardPage extends StatefulWidget {
 }
 
 class _OnboardPageState extends State<OnboardPage> {
+  @override
+  void initState() {
+    super.initState();
+    AuthenticationService().initUsers(); // Should be deleted
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +71,9 @@ class _OnboardPageState extends State<OnboardPage> {
                     width: double.infinity,
                     height: context.height * 0.066,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.navigateToPage(const RegisterPage());
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 103, 80, 164),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
@@ -80,7 +91,9 @@ class _OnboardPageState extends State<OnboardPage> {
                     width: double.infinity,
                     height: context.height * 0.066,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.navigateToPage(const LoginPage());
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         primary: Colors.transparent,
