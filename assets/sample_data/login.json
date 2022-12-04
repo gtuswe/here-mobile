@@ -5,14 +5,118 @@
             "surname": "Armağan",
             "schoolNumber": "200104004001",
             "mail": "ozan@gtu.edu.tr",
-            "password": "ozan1234"
+            "password": "ozan1234",
+            "attendance": [
+                {
+                    "CSE343": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        false,
+                        true
+                    ]
+                },
+                {
+                    "CSE341": [
+                        true,
+                        false,
+                        true,
+                        true,
+                        true,
+                        true
+                    ]
+                },
+                {
+                    "CSE321": [
+                        false,
+                        false,
+                        true,
+                        true,
+                        null,
+                        true
+                    ]
+                },
+                {
+                    "CSE232": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true
+                    ]
+                },
+                {
+                    "CSE222": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        true
+                    ]
+                }
+            ]
         },
         {
             "name": "Atacan",
             "surname": "Başaran",
             "schoolNumber": "200104004008",
             "mail": "a.basaran2020@gtu.edu.tr",
-            "password": "atacan2002"
+            "password": "atacan2002",
+            "attendance": [
+                {
+                    "CSE343": [
+                        false,
+                        true,
+                        true,
+                        true,
+                        false,
+                        true
+                    ]
+                },
+                {
+                    "CSE341": [
+                        false,
+                        false,
+                        true,
+                        true,
+                        false,
+                        true
+                    ]
+                },
+                {
+                    "CSE321": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        null,
+                        true
+                    ]
+                },
+                {
+                    "CSE232": [
+                        false,
+                        true,
+                        true,
+                        true,
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "CSE222": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        true,
+                        true
+                    ]
+                }
+            ]
         }
     ]
 }
