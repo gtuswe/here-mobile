@@ -22,7 +22,7 @@ class ClassService {
     await Future.delayed(const Duration(milliseconds: 300));
 
     final jsonString = await _loadAsset(
-      'assets/sample_data/classes.json',
+      'assets/sample_data/all_classes.json',
     );
 
     final Map<String, dynamic> json = jsonDecode(jsonString);
