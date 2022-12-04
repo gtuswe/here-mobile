@@ -1,0 +1,208 @@
+{
+  "detailed_classes": [
+    {
+      "id": 0,
+      "name": "Software Engineering",
+      "image": "https://picsum.photos/48/48",
+      "date": "2022-12-05 14:30",
+      "courseCode": "CSE343",
+      "destination": "Z10",
+      "attendance": [
+        true,
+        false,
+        true,
+        true,
+        null,
+        true
+      ],
+      "participants": [
+        {
+          "name": "Atacan Başaran",
+          "email": "a.basaran2020@gtu.edu.tr"
+        },
+        {
+          "name": "Halil İbrahim İlhan",
+          "email": "h.ilhan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Asuman Sare Ergüt",
+          "email": "a.ergut2019@gtu.edu.tr"
+        },
+        {
+          "name": "Serhat Sarı",
+          "email": "s.sari2020@gtu.edu.tr"
+        },
+        {
+          "name": "Ozan Armağan",
+          "email": "o.armagan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Habil Kalkan",
+          "email": "hkalkan@gtu.edu.tr"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Programming Languages",
+      "image": "https://picsum.photos/48/48",
+      "date": "2022-12-06 14:30",
+      "courseCode": "CSE341",
+      "destination": "Z23",
+      "attendance": [
+        true,
+        false,
+        true,
+        true,
+        null,
+        true
+      ],
+      "participants": [
+        {
+          "name": "Atacan Başaran",
+          "email": "a.basaran2020@gtu.edu.tr"
+        },
+        {
+          "name": "Halil İbrahim İlhan",
+          "email": "h.ilhan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Asuman Sare Ergüt",
+          "email": "a.ergut2019@gtu.edu.tr"
+        },
+        {
+          "name": "Serhat Sarı",
+          "email": "s.sari2020@gtu.edu.tr"
+        },
+        {
+          "name": "Ozan Armağan",
+          "email": "o.armagan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Habil Kalkan",
+          "email": "hkalkan@gtu.edu.tr"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Algorithm Design",
+      "image": "https://picsum.photos/48/48",
+      "date": "2022-12-07 13:30",
+      "courseCode": "CSE321",
+      "destination": "Z06",
+      "attendance": [
+        true,
+        false,
+        true,
+        true,
+        null,
+        true
+      ],
+      "participants": [
+        {
+          "name": "Atacan Başaran",
+          "email": "a.basaran2020@gtu.edu.tr"
+        },
+        {
+          "name": "Halil İbrahim İlhan",
+          "email": "h.ilhan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Asuman Sare Ergüt",
+          "email": "a.ergut2019@gtu.edu.tr"
+        },
+        {
+          "name": "Serhat Sarı",
+          "email": "s.sari2020@gtu.edu.tr"
+        },
+        {
+          "name": "Ozan Armağan",
+          "email": "o.armagan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Habil Kalkan",
+          "email": "hkalkan@gtu.edu.tr"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Logic Circuits",
+      "image": "https://picsum.photos/48/48",
+      "attendance": [
+        true,
+        false,
+        true,
+        true,
+        null,
+        true
+      ],
+      "participants": [
+        {
+          "name": "Atacan Başaran",
+          "email": "a.basaran2020@gtu.edu.tr"
+        },
+        {
+          "name": "Halil İbrahim İlhan",
+          "email": "h.ilhan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Asuman Sare Ergüt",
+          "email": "a.ergut2019@gtu.edu.tr"
+        },
+        {
+          "name": "Serhat Sarı",
+          "email": "s.sari2020@gtu.edu.tr"
+        },
+        {
+          "name": "Ozan Armağan",
+          "email": "o.armagan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Habil Kalkan",
+          "email": "hkalkan@gtu.edu.tr"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Data Structures",
+      "image": "https://picsum.photos/48/48",
+      "attendance": [
+        true,
+        false,
+        true,
+        true,
+        null,
+        true
+      ],
+      "participants": [
+        {
+          "name": "Atacan Başaran",
+          "email": "a.basaran2020@gtu.edu.tr"
+        },
+        {
+          "name": "Halil İbrahim İlhan",
+          "email": "h.ilhan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Asuman Sare Ergüt",
+          "email": "a.ergut2019@gtu.edu.tr"
+        },
+        {
+          "name": "Serhat Sarı",
+          "email": "s.sari2020@gtu.edu.tr"
+        },
+        {
+          "name": "Ozan Armağan",
+          "email": "o.armagan2020@gtu.edu.tr"
+        },
+        {
+          "name": "Habil Kalkan",
+          "email": "hkalkan@gtu.edu.tr"
+        }
+      ]
+    }
+  ]
+}
