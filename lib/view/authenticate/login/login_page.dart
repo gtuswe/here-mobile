@@ -116,7 +116,11 @@ class _LoginPageState extends State<LoginPage> {
 
                                     if (result == true) {
                                       _errorText = "";
-                                      context.navigateToPage(const MainPage());
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) => const MainPage(),
+                                          ));
                                     } else {
                                       setState(() {
                                         _errorText = "Kullanıcı adı veya şifre geçersiz";
@@ -147,7 +151,11 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      context.navigateToPage(const RegisterPage());
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) => const RegisterPage(),
+                                          ));
                                     },
                                     child: const Text("Sign Up"))
                               ],

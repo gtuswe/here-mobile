@@ -72,7 +72,11 @@ class _OnboardPageState extends State<OnboardPage> {
                     height: context.height * 0.066,
                     child: ElevatedButton(
                       onPressed: () {
-                        context.navigateToPage(const RegisterPage());
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => const RegisterPage(),
+                            ));
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 103, 80, 164),
@@ -92,7 +96,11 @@ class _OnboardPageState extends State<OnboardPage> {
                     height: context.height * 0.066,
                     child: ElevatedButton(
                       onPressed: () {
-                        context.navigateToPage(const LoginPage());
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => const LoginPage(),
+                            ));
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
