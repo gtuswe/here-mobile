@@ -1,24 +1,3 @@
-/*
-
-Future<Class?> getClassDetailsById(int id) async {
-    await Future.delayed(const Duration(milliseconds: 300));
-
-    final jsonString = await _loadAsset(
-      'assets/sample_data/detailed_classes.json',
-    );
-
-    final Map<String, dynamic> json = jsonDecode(jsonString);
-
-    if (json['classes'] != null) {
-      json['detailed_classes'].forEach((v) {
-        Class detailedClass = Class.fromJson(v);
-        if (detailedClass.id == id) return detailedClass;
-      });
-    }
-    return null;
-  }
-
-*/
 {
   "detailed_classes": [
     {
