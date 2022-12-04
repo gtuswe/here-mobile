@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:here/service/authentication.dart';
+import 'package:here/view/authenticate/login/login_page.dart';
 import 'package:here/view/main_page.dart';
 import 'package:kartal/kartal.dart';
 
@@ -202,7 +203,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                         _schoolNumberController.text, _emailController.text, _passwordController.text);
                                     _changeLoading();
 
-                                    context.navigateToPage(const MainPage());
+
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) => const MainPage(),
+                                        ));
+
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -222,7 +229,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                   "Do you have an account?",
                                   style: context.textTheme.labelSmall!.copyWith(color: Colors.grey),
                                 ),
-                                TextButton(onPressed: () {}, child: const Text("Sign In"))
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) => const LoginPage(),
+                                          ));
+                                    },
+                                    child: const Text("Sign In"))
                               ],
                             ),
                           ],
