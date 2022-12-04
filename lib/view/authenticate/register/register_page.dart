@@ -203,11 +203,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                         _schoolNumberController.text, _emailController.text, _passwordController.text);
                                     _changeLoading();
 
+
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                           builder: (BuildContext context) => const MainPage(),
                                         ));
+
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
