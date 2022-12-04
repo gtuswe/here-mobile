@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:here/model/class.dart';
+import 'package:here/model/user.dart';
 import 'package:kartal/kartal.dart';
 import 'package:timelines/timelines.dart';
 
 class ClassDetailsPage extends StatefulWidget {
-  const ClassDetailsPage({Key? key}) : super(key: key);
+  final Class classInstance;
+  // final User user;
+  const ClassDetailsPage({Key? key, required this.classInstance}) : super(key: key);
 
   @override
   State<ClassDetailsPage> createState() => _ClassDetailsPageState();
@@ -19,7 +23,7 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Software Engineering")),
+          title: Center(child: Text(widget.classInstance.name ?? '')),
           actions: [
             Padding(
                 padding: const EdgeInsets.only(right: 10), //paddingi temadan cekeriz
@@ -50,7 +54,7 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
                 flex: 12,
                 child: TabBarView(
                   children: [
-                    _attendance(),
+                    _attendance(widget.classInstance.attendances ?? []),
                     _participants(),
                   ],
                 )),
@@ -60,7 +64,7 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
     );
   }
 
-  Timeline _attendance() {
+  Timeline _attendance(List<bool> attendances) {
     return Timeline.tileBuilder(
       theme: TimelineThemeData(
         indicatorTheme: const IndicatorThemeData(
@@ -76,9 +80,9 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
         contentsAlign: ContentsAlign.basic,
         indicatorStyle: IndicatorStyle.dot,
         contentsBuilder: ((context, index) {
-          return const Padding(
-            padding: EdgeInsets.all(35),
-            child: Text("Wekk 6 Here!"),
+          return Padding(
+            padding: const EdgeInsets.all(35),
+            child: Text("Week ${index + 1}"),
           );
         }),
         itemCount: 6,
@@ -101,7 +105,7 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
                 title: Padding(
                   padding: const EdgeInsets.only(top: 12),
                   child: Text(
-                    "Software Engineering",
+                    widget.classInstance.name ?? '',
                     style: context.textTheme.headline6,
                   ),
                 ),

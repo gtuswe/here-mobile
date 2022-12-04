@@ -24,6 +24,8 @@ class Class {
 
   String? courseCode;
   String? destination;
+  List<bool>? attendances; // All attendances
+  List<Participant>? participants;
 
   // Constructor
   Class({
@@ -34,6 +36,8 @@ class Class {
     this.upcomingDate,
     this.courseCode,
     this.destination,
+    this.attendances,
+    this.participants,
   });
 
   // Field parser methods
@@ -43,4 +47,22 @@ class Class {
   static String? _dateTimeToString(DateTime? dateTime) => (dateTime != null)
       ? (DateFormat('y-M-dd H:m').format(dateTime))
       : (null);
+}
+
+@JsonSerializable()
+class Participant {
+  // JSON conversions
+  factory Participant.fromJson(Map<String, dynamic> json) => _$ParticipantFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ParticipantToJson(this);
+
+  // JSON fields
+  String? name;
+  String? email;
+
+  // Constructor
+  Participant({
+    this.name,
+    this.email,
+  });
 }
