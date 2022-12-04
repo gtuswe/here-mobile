@@ -129,6 +129,7 @@
     {
       "id": 3,
       "name": "Logic Circuits",
+      "courseCode": "CSE232",
       "image": "https://picsum.photos/48/48",
       "attendance": [
         true,
@@ -168,6 +169,7 @@
     {
       "id": 4,
       "name": "Data Structures",
+      "courseCode": "CSE222",
       "image": "https://picsum.photos/48/48",
       "attendance": [
         true,

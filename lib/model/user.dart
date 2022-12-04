@@ -16,6 +16,7 @@ class User {
   String? mail;
   String? schoolNumber;
   String? password; // Silinecek
+  List<Map<String, List<bool>>>? attendance;
 
   User({
     required this.id,
@@ -24,5 +25,6 @@ class User {
     required this.mail,
     required this.schoolNumber,
     required this.password,
+    required this.attendance,
   });
 }
