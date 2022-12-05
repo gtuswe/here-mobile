@@ -102,7 +102,7 @@ class ClassTile extends StatelessWidget {
             child: CachedNetworkImage(
               width: 72,
               height: 72,
-              imageUrl: classInstance.image ?? '',
+              imageUrl: '${classInstance.image}?t=${DateTime.now()}',
               errorWidget: (context, url, error) =>
                   const Icon(Icons.broken_image),
               fit: BoxFit.cover,

@@ -88,7 +88,7 @@ class ClassCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   width: SizeConfig.blockSizeVertical * 20,
                   height: SizeConfig.blockSizeVertical * 9,
-                  imageUrl: classInstance.image ?? '',
+                  imageUrl: '${classInstance.image}?t=${DateTime.now()}',
                   errorWidget: (context, url, error) =>
                       const Icon(Icons.broken_image),
                   fit: BoxFit.cover,

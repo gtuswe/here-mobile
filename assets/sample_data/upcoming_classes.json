@@ -3,7 +3,7 @@
     {
       "id": 0,
       "name": "Software Engineering",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "upcomingDate": "2022-12-05 13:30",
       "courseCode": "CSE343",
       "destination": "Z10"
@@ -11,7 +11,7 @@
     {
       "id": 1,
       "name": "Software Engineering",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "upcomingDate": "2022-12-05 13:30",
       "courseCode": "CSE343",
       "destination": "Z10"
@@ -19,7 +19,7 @@
     {
       "id": 2,
       "name": "Software Engineering",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "upcomingDate": "2022-12-05 13:30",
       "courseCode": "CSE343",
       "destination": "Z10"

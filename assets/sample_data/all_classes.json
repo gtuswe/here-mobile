@@ -3,7 +3,7 @@
     {
       "id": 0,
       "name": "Software Engineering",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "mostRecentFiveAttendance": [
         true,
         false,
@@ -15,7 +15,7 @@
     {
       "id": 1,
       "name": "Programming Languages",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "mostRecentFiveAttendance": [
         true,
         false,
@@ -27,7 +27,7 @@
     {
       "id": 2,
       "name": "Algorithm Design",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "mostRecentFiveAttendance": [
         true,
         false,
@@ -39,7 +39,7 @@
     {
       "id": 3,
       "name": "Logic Circuits",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "mostRecentFiveAttendance": [
         true,
         false,
@@ -51,7 +51,7 @@
     {
       "id": 4,
       "name": "Data Structures",
-      "image": "https://picsum.photos/48/48",
+      "image": "https://picsum.photos/200/200",
       "mostRecentFiveAttendance": [
         true,
         false,
