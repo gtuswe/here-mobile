@@ -51,6 +51,13 @@ class ClassTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var scaffoldMessenger = ScaffoldMessenger.of(context);
+    classDetailsNavigator(Class classDetail) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ClassDetailsPage(classInstance: classDetail),
+        ));
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 9.0),
       child: Card(
@@ -62,16 +69,11 @@ class ClassTile extends StatelessWidget {
                 await ClassService().getClassDetailsById(classInstance.id);
 
             if (classDetail == null) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              scaffoldMessenger.showSnackBar(const SnackBar(
                 content: Text('Class detail not found!'),
               ));
             } else {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ClassDetailsPage(classInstance: classDetail),
-                  ));
+              classDetailsNavigator(classDetail);
             }
           },
           visualDensity: const VisualDensity(vertical: 4),

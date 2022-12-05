@@ -68,7 +68,7 @@ class ClassService {
     final Map<String, dynamic> json = jsonDecode(jsonString);
     print(json);
 
-    var result = null;
+    Class? result;
     if (json['detailed_classes'] != null) {
       json['detailed_classes'].forEach((v) {
         Class detailedClass = Class.fromJson(v);

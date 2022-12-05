@@ -26,6 +26,7 @@ class _UpcomingClassListState extends State<UpcomingClassList>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     SizeConfig.init(context);
     return ClassFutureBuilder(
       classes: upcomingClasses,
@@ -41,27 +42,38 @@ class _UpcomingClassListState extends State<UpcomingClassList>
         itemBuilder: (context, index) {
           final Class classInstance = classes[index];
 
-          return _classCard(classInstance);
+          return ClassCard(classInstance: classInstance);
         });
   }
 
-  Widget _classCard(Class classInstance) {
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class ClassCard extends StatelessWidget {
+  final Class classInstance;
+
+  const ClassCard({Key? key, required this.classInstance}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var scaffoldMessenger = ScaffoldMessenger.of(context);
+    classDetailsNavigator(Class classDetail) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ClassDetailsPage(classInstance: classDetail),
+        ));
     return InkWell(
       onTap: () async {
         var classDetail =
             await ClassService().getClassDetailsById(classInstance.id);
 
         if (classDetail == null) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          scaffoldMessenger.showSnackBar(const SnackBar(
             content: Text('Class detail not found!'),
           ));
         } else {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    ClassDetailsPage(classInstance: classDetail),
-              ));
+          classDetailsNavigator(classDetail);
         }
       },
       child: Card(
@@ -100,7 +112,4 @@ class _UpcomingClassListState extends State<UpcomingClassList>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
