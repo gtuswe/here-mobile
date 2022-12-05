@@ -6,8 +6,10 @@ import 'package:timelines/timelines.dart';
 
 class ClassDetailsPage extends StatefulWidget {
   final Class classInstance;
+
   // final User user;
-  const ClassDetailsPage({Key? key, required this.classInstance}) : super(key: key);
+  const ClassDetailsPage({Key? key, required this.classInstance})
+      : super(key: key);
 
   @override
   State<ClassDetailsPage> createState() => _ClassDetailsPageState();
@@ -17,8 +19,10 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
   final Color _selectedTabColor = const Color.fromARGB(255, 103, 80, 164);
   final String _name = "Atacan Başaran";
   final String _mail = "a.basaran2020@gtu.edu.tr";
+
   @override
   Widget build(BuildContext context) {
+    print('classInstance: ${widget.classInstance.toJson()}');
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -26,8 +30,10 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
           title: Center(child: Text(widget.classInstance.name ?? '')),
           actions: [
             Padding(
-                padding: const EdgeInsets.only(right: 10), //paddingi temadan cekeriz
-                child: IconButton(onPressed: (() {}), icon: const Icon(Icons.more_vert)))
+                padding: const EdgeInsets.only(right: 10),
+                //paddingi temadan cekeriz
+                child: IconButton(
+                    onPressed: (() {}), icon: const Icon(Icons.more_vert)))
           ],
         ),
         body: Column(
@@ -64,8 +70,15 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
     );
   }
 
-  Timeline _attendance(List<bool> attendances) {
+  Widget _attendance(List<bool?> attendances) {
+    if (attendances.isNullOrEmpty) {
+      return const Center(
+        child: Text('No attendance.'),
+      );
+    }
+
     return Timeline.tileBuilder(
+      shrinkWrap: true,
       theme: TimelineThemeData(
         indicatorTheme: const IndicatorThemeData(
           color: Colors.green,
@@ -82,15 +95,26 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
         contentsBuilder: ((context, index) {
           return Padding(
             padding: const EdgeInsets.all(35),
-            child: Text("Week ${attendances.length - index}"),
+            child: Text("Week ${attendances.length - index}: "
+                "${(attendances[index] != null) ? (attendances[index] == true ? 'Attended' : 'Absent') : 'Canceled'}"),
           );
         }),
-        itemCount: 6,
+        itemCount: widget.classInstance.attendances?.length ?? 0,
       ),
     );
   }
 
   Card _classDetailsPageCard(BuildContext context) {
+    int attendedClasses = 0;
+    widget.classInstance.attendances?.forEach((element) {
+      if (element != false) {
+        attendedClasses++;
+      }
+    });
+    int totalClasses = widget.classInstance.attendances?.length ?? 0;
+    double attendanceRate = 0;
+    if (totalClasses > 0) attendanceRate = attendedClasses / totalClasses;
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -110,7 +134,9 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
                   ),
                 ),
                 subtitle: Text(
-                  '${DateFormat('EEEE').format(widget.classInstance.upcomingDate!)} - ${widget.classInstance.upcomingDate?.hour}:${widget.classInstance.upcomingDate?.minute}',
+                  (widget.classInstance.upcomingDate != null)
+                      ? '${DateFormat('EEEE').format(widget.classInstance.upcomingDate!)} - ${widget.classInstance.upcomingDate?.hour}:${widget.classInstance.upcomingDate?.minute}'
+                      : '',
                 ),
               ),
             ),
@@ -119,13 +145,13 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
               child: ListTile(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text("Collected Lesson"),
-                    Text("6/24"),
+                  children: [
+                    const Text("Collected Lesson"),
+                    Text("$attendedClasses/$totalClasses"),
                   ],
                 ),
-                subtitle: const LinearProgressIndicator(
-                  value: 6 / 24, // backendden olmuş ders sayısı
+                subtitle: LinearProgressIndicator(
+                  value: attendanceRate, // backendden olmuş ders sayısı
                   color: Colors.green,
                   backgroundColor: Colors.grey,
                 ),
@@ -137,7 +163,13 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
     );
   }
 
-  ListView _participants() {
+  Widget _participants() {
+    if (widget.classInstance.participants.isNullOrEmpty) {
+      return const Center(
+        child: Text('No participants.'),
+      );
+    }
+
     return ListView.builder(
       itemCount: widget.classInstance.participants?.length ?? 0,
       shrinkWrap: true,
@@ -146,9 +178,11 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
           margin: EdgeInsets.zero,
           child: ListTile(
             title: Text(widget.classInstance.participants?[index].name ?? ""),
-            subtitle: Text(widget.classInstance.participants?[index].email ?? ""),
+            subtitle:
+                Text(widget.classInstance.participants?[index].email ?? ""),
             leading: const ClipOval(
-              child: Icon(Icons.person), // backendden image yoksa ismi baş harfi olan
+              child: Icon(
+                  Icons.person), // backendden image yoksa ismi baş harfi olan
             ),
           ),
         );

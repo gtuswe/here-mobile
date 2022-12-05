@@ -72,17 +72,13 @@ class ClassService {
     if (json['detailed_classes'] != null) {
       json['detailed_classes'].forEach((v) {
         Class detailedClass = Class.fromJson(v);
-        print(detailedClass.id);
-        print(id);
-        print(detailedClass.id == id);
-        print('-');
+        print('detailedClass: ${detailedClass.toJson()}');
         if (detailedClass.id == id) {
           // return detailedClass;
           result = detailedClass;
         }
       });
     }
-    print('null');
     return result;
   }
 
