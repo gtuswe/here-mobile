@@ -1,4 +1,4 @@
-package com.example.here
+package com.nullinc.here
 
 import io.flutter.embedding.android.FlutterActivity
 
