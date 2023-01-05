@@ -117,12 +117,14 @@ class _LoginPageState extends State<LoginPage> {
                                     if (result == true) {
                                       _errorText = "";
 
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (BuildContext context) => const MainPage(),
-                                          ));
-
+                                      if(mounted){
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  const MainPage(),
+                                            ));
+                                      }
                                     } else {
                                       setState(() {
                                         _errorText = "Kullanıcı adı veya şifre geçersiz";

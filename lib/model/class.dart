@@ -24,7 +24,7 @@ class Class {
 
   String? courseCode;
   String? destination;
-  List<bool>? attendances; // All attendances
+  List<bool?>? attendances; // All attendances
   List<Participant>? participants;
 
   // Constructor

@@ -68,21 +68,17 @@ class ClassService {
     final Map<String, dynamic> json = jsonDecode(jsonString);
     print(json);
 
-    var result = null;
+    Class? result;
     if (json['detailed_classes'] != null) {
       json['detailed_classes'].forEach((v) {
         Class detailedClass = Class.fromJson(v);
-        print(detailedClass.id);
-        print(id);
-        print(detailedClass.id == id);
-        print('-');
+        print('detailedClass: ${detailedClass.toJson()}');
         if (detailedClass.id == id) {
           // return detailedClass;
           result = detailedClass;
         }
       });
     }
-    print('null');
     return result;
   }
 

@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:here/model/class.dart';
+import 'package:intl/intl.dart';
+import 'package:kartal/kartal.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrScanView extends StatefulWidget {
@@ -46,8 +50,7 @@ class _QrScanViewState extends State<QrScanView> {
                     Text(
                         'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
                   else
-                    const Text('')
-                  ,
+                    const Text(''),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,6 +158,53 @@ class _QrScanViewState extends State<QrScanView> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        controller.pauseCamera();
+        Class classInstance = Class.fromJson(jsonDecode(result?.code ?? ''));
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => Card(
+            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Attendance Taken!',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.architecture),
+                  title: Text('Class: ${classInstance.name}'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.location_on_rounded),
+                  title: Text('Location: ${classInstance.destination}'),
+                ),
+                ListTile(
+                    leading: const Icon(Icons.today),
+                    title: classInstance.upcomingDate != null
+                        ? Text(
+                            'Date: ${DateFormat('EEEE').format(classInstance.upcomingDate!)} - ${classInstance.upcomingDate?.hour}:${classInstance.upcomingDate?.minute}')
+                        : const Text('Date: -')),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
+                        child: const Text('Cancel')),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context, true);
+                        },
+                        child: const Text('OK')),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ).then((value) => controller.resumeCamera());
       });
     });
   }

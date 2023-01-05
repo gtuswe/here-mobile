@@ -14,12 +14,15 @@ class SizeConfig {
 
   static void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-    blockArea = blockSizeHorizontal * blockSizeVertical;
+
     isPortrait = _mediaQueryData.orientation == Orientation.portrait;
     isDarkTheme = _mediaQueryData.platformBrightness == Brightness.dark;
+
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+
+    blockSizeHorizontal = isPortrait ? screenWidth / 100 : screenHeight / 100;
+    blockSizeVertical = isPortrait ? screenHeight / 100 : screenWidth / 100;
+    blockArea = blockSizeHorizontal * blockSizeVertical;
   }
 }

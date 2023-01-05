@@ -26,6 +26,7 @@ class _UpcomingClassListState extends State<UpcomingClassList>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     SizeConfig.init(context);
     return ClassFutureBuilder(
       classes: upcomingClasses,
@@ -35,74 +36,80 @@ class _UpcomingClassListState extends State<UpcomingClassList>
 
   Widget _buildUpcomingClassList(List<Class> classes) {
     return ListView.builder(
+        shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: classes.length,
         itemBuilder: (context, index) {
           final Class classInstance = classes[index];
 
-          return _classCard(classInstance);
+          return ClassCard(classInstance: classInstance);
         });
   }
 
-  Widget _classCard(Class classInstance) {
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class ClassCard extends StatelessWidget {
+  final Class classInstance;
+
+  const ClassCard({Key? key, required this.classInstance}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var scaffoldMessenger = ScaffoldMessenger.of(context);
+    classDetailsNavigator(Class classDetail) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ClassDetailsPage(classInstance: classDetail),
+        ));
     return InkWell(
       onTap: () async {
         var classDetail =
-        await ClassService().getClassDetailsById(classInstance.id);
+            await ClassService().getClassDetailsById(classInstance.id);
 
         if (classDetail == null) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          scaffoldMessenger.showSnackBar(const SnackBar(
             content: Text('Class detail not found!'),
           ));
         } else {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    ClassDetailsPage(classInstance: classDetail),
-              ));
+          classDetailsNavigator(classDetail);
         }
       },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: SizeConfig.screenHeight / 5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisSize: MainAxisSize.min,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: CachedNetworkImage(
-                    width: 140,
-                    height: 80,
-                    imageUrl: classInstance.image ?? '',
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.broken_image),
-                    fit: BoxFit.cover,
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: CachedNetworkImage(
+                  width: SizeConfig.blockSizeVertical * 20,
+                  height: SizeConfig.blockSizeVertical * 9,
+                  imageUrl: '${classInstance.image}?t=${DateTime.now()}',
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.broken_image),
+                  fit: BoxFit.cover,
                 ),
-                Text(
-                  '${DateFormat('EEEE').format(classInstance.upcomingDate!)} - ${classInstance.upcomingDate?.hour}:${classInstance.upcomingDate?.minute}',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-                Text(
-                  '${classInstance.name}',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                Text(
-                  '${classInstance.courseCode} • ${classInstance.destination}',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
+              ),
+              Text(
+                '${DateFormat('EEEE').format(classInstance.upcomingDate!)} - ${classInstance.upcomingDate?.hour}:${classInstance.upcomingDate?.minute}',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Text(
+                '${classInstance.name}',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              Text(
+                '${classInstance.courseCode} • ${classInstance.destination}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
