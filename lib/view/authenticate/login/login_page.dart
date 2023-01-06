@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:here/model/user.dart';
 import 'package:here/service/authentication.dart';
+import 'package:flutter/material.dart';
 import 'package:here/view/authenticate/register/register_page.dart';
 import 'package:here/view/main_page.dart';
 import 'package:kartal/kartal.dart';
@@ -17,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,23 +112,31 @@ class _LoginPageState extends State<LoginPage> {
                                   if (_formKey.currentState?.validate() ?? false) {
                                     _changeLoading();
                                     FocusManager.instance.primaryFocus?.unfocus();
-                                    final result = await AuthenticationService()
-                                        .checkUser(_emailController.text, _passwordController.text);
+
+                                    User? user;
+                                    await AuthenticationService()
+                                        .login(
+                                      _emailController.text,
+                                      _passwordController.text,
+                                    )
+                                        .then((value) {
+                                      user = value;
+                                    });
                                     _changeLoading();
 
-                                    if (result == true) {
+                                    if (user != null) {
                                       _errorText = "";
+                                      print(user);
 
-                                      if(mounted){
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  const MainPage(),
-                                            ));
-                                      }
-                                    } else {
+                                      // user bilgimiz var lazımsa result
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) => const MainPage(),
+                                          ));
+                                    } else if (user == null) {
                                       setState(() {
+                                        print("error");
                                         _errorText = "Kullanıcı adı veya şifre geçersiz";
                                       });
                                     }
@@ -155,13 +165,11 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 TextButton(
                                     onPressed: () {
-
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                             builder: (BuildContext context) => const RegisterPage(),
                                           ));
-
                                     },
                                     child: const Text("Sign Up"))
                               ],

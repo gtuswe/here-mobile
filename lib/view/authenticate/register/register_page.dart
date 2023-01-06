@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:here/model/user.dart';
 import 'package:here/service/authentication.dart';
 import 'package:here/view/authenticate/login/login_page.dart';
-import 'package:here/view/main_page.dart';
 import 'package:kartal/kartal.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   border: OutlineInputBorder(),
                                 ),
                                 validator: (String? data) {
-                                  if (data.isNullOrEmpty) return "*";
+                                  if (data.isNullOrEmpty || !(RegExp('[a-zA-Z]').hasMatch(data!))) return "*";
                                   return null;
                                 },
                               ),
@@ -97,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   border: OutlineInputBorder(),
                                 ),
                                 validator: (String? data) {
-                                  if (data.isNullOrEmpty) return "*";
+                                  if (data.isNullOrEmpty || !(RegExp('[a-zA-Z]').hasMatch(data!))) return "*";
                                   return null;
                                 },
                               ),
@@ -120,8 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             border: OutlineInputBorder(),
                           ),
                           validator: (String? data) {
-                            if (data!.isEmpty) return "*";
-                            return null;
+                            return data!.isEmpty ? "*" : (RegExp(r'\d').hasMatch(data) ? null : "Geçersiz numara");
                           },
                         ),
                       ),
@@ -195,21 +194,31 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: double.infinity,
                               height: 56,
                               child: ElevatedButton(
-                                onPressed: () async {
+                                onPressed: () {
                                   if (_formKey.currentState?.validate() ?? false) {
                                     _changeLoading();
+
                                     FocusManager.instance.primaryFocus?.unfocus();
-                                    AuthenticationService().insertUser(_nameController.text, _lastNameController.text,
-                                        _schoolNumberController.text, _emailController.text, _passwordController.text);
+
+                                    User? user;
+                                    AuthenticationService()
+                                        .insertUser(
+                                      _nameController.text,
+                                      _lastNameController.text,
+                                      _schoolNumberController.text,
+                                      _emailController.text,
+                                      _passwordController.text,
+                                    )
+                                        .then((value) {
+                                      user = value;
+                                    });
                                     _changeLoading();
-
-
-                                    Navigator.pushReplacement(
+                                    print(user);
+                                    /*Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                           builder: (BuildContext context) => const MainPage(),
-                                        ));
-
+                                        ));*/
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -222,6 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ),
+                            Text(_errorText),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
