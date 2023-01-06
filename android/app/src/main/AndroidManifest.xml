@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nullinc.here">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Here!"
         android:name="${applicationName}"

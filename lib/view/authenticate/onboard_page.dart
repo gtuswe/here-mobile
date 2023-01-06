@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:here/service/authentication.dart';
 import 'package:here/view/authenticate/login/login_page.dart';
 import 'package:here/view/authenticate/register/register_page.dart';
 import 'package:kartal/kartal.dart';
@@ -17,7 +15,6 @@ class _OnboardPageState extends State<OnboardPage> {
   @override
   void initState() {
     super.initState();
-    AuthenticationService().initUsers(); // Should be deleted
   }
 
   @override
@@ -33,7 +30,7 @@ class _OnboardPageState extends State<OnboardPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset("assets/images/here_logo2.svg"),
+                  Image.asset("assets/images/here_logo.png", width: 100),
                   const SizedBox(width: 30),
                   Text(
                     "Here!",
@@ -72,13 +69,11 @@ class _OnboardPageState extends State<OnboardPage> {
                     height: context.height * 0.066,
                     child: ElevatedButton(
                       onPressed: () {
-
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (BuildContext context) => const RegisterPage(),
                             ));
-
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 103, 80, 164),
@@ -98,13 +93,11 @@ class _OnboardPageState extends State<OnboardPage> {
                     height: context.height * 0.066,
                     child: ElevatedButton(
                       onPressed: () {
-
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (BuildContext context) => const LoginPage(),
                             ));
-
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,

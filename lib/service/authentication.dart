@@ -1,22 +1,69 @@
 import 'dart:convert';
-import 'dart:math';
 
-import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/user.dart';
 
 class AuthenticationService {
-  Future<bool> checkUser(String email, String password) async {
-    List<User> users = await getuser();
-    for (var user in users) {
-      if (user.mail == email && user.password == password) {
-        final sharedpreference = await SharedPreferences.getInstance();
-        sharedpreference.setString("currentUser", user.toString());
-        return true;
+  final String baseUrl = 'https://herequickattendance.me';
+
+  Future<User?> insertUser(
+      String firstName, String lastName, String schoolNumber, String email, String password) async {
+    Map<String, dynamic> map = {
+      "name": firstName,
+      "surname": lastName,
+      "mail": email,
+      "password": password,
+      "student_no": schoolNumber,
+      "phone_number": 750
+    };
+    try {
+      final Response response = await post(
+        Uri.parse('$baseUrl/api/student'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(map),
+      );
+      Map<String, dynamic> result = jsonDecode(response.body);
+      print(result);
+      if (result["accessToken"] != null) {
+        final sharedPreferences = await SharedPreferences.getInstance();
+        sharedPreferences.setString("accessToken", result["accessToken"]);
+        return User.fromJson(result);
+      } else {
+        return null;
       }
+    } catch (e) {
+      print("xd");
+      print(e.toString());
+      return null;
     }
-    return false;
+  }
+
+  Future<User?> login(String email, String password) async {
+    Map<String, dynamic> map = {
+      "mail": email,
+      "password": password,
+    };
+    try {
+      final Response response = await post(
+        Uri.parse('$baseUrl/api/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(map),
+      );
+      Map<String, dynamic> result = jsonDecode(response.body);
+      print(result);
+      if (result["accessToken"] != null) {
+        final sharedPreferences = await SharedPreferences.getInstance();
+        sharedPreferences.setString("accessToken", result["accessToken"]);
+        return User.fromJson(result);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 
   Future<User> getCurrentUser() async {
@@ -26,19 +73,6 @@ class AuthenticationService {
     final currentUserJson = jsonDecode(currentUserString ?? "");
 
     return User.fromJson(currentUserJson);
-  }
-
-  Future<void> initUsers() async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    final sharedpreference = await SharedPreferences.getInstance();
-
-    if (sharedpreference.getString("users") == null) {
-      final jsonString = await _loadAsset(
-        'assets/sample_data/login.json',
-      );
-
-      sharedpreference.setString("users", jsonString);
-    }
   }
 
   Future<List<User>> getuser() async {
@@ -57,46 +91,5 @@ class AuthenticationService {
     } else {
       return [];
     }
-  }
-
-  Future<void> insertUser(String firstName, String lastName, String schoolNumber, String email, String password) async {
-    final sharedpreference = await SharedPreferences.getInstance();
-    final alljsonsString = sharedpreference.getString("users");
-    final Map<String, dynamic> alljsons = jsonDecode(alljsonsString ?? "");
-
-    var random = Random();
-    List<Map<String, List<bool>>> attendances = [];
-    Map<String, List<bool>> attendance = {};
-    List<bool> attendanceValue = [];
-    List<String> classes = ["CSE343", "CSE341", "CSE321", "CSE232", "CSE222"];
-
-    for (var aClass in classes) {
-      attendanceValue = [];
-      for (int i = 0; i < random.nextInt(14) + 1; i++) {
-        attendanceValue.add(random.nextBool());
-      }
-      attendance[aClass] = attendanceValue;
-      attendances.add(attendance);
-    }
-
-    final json = User(
-      id: null,
-      name: firstName,
-      mail: email,
-      password: password,
-      schoolNumber: schoolNumber,
-      surname: lastName,
-      attendance: attendances,
-    ).toJson();
-
-    alljsons["users"].add(json);
-    sharedpreference.setString("currentUser", jsonEncode(json));
-
-    var saveData = jsonEncode(alljsons);
-    await sharedpreference.setString("users", saveData);
-  }
-
-  Future<String> _loadAsset(String path) async {
-    return rootBundle.loadString(path);
   }
 }
