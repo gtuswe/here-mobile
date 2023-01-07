@@ -14,7 +14,7 @@ class User {
   String? name;
   String? surname;
   String? mail;
-  String? schoolNumber;
+  String? student_no;
   List<Map<String, List<bool>>>? attendance;
 
   User({
@@ -22,7 +22,7 @@ class User {
     required this.name,
     required this.surname,
     required this.mail,
-    required this.schoolNumber,
+    required this.student_no,
     required this.attendance,
   });
 }

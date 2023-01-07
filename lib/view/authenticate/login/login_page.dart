@@ -25,6 +25,16 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Login"),
+        actions: [
+          _loading
+              ? const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 103, 80, 164),
+                  ),
+                )
+              : const SizedBox(),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
@@ -126,7 +136,6 @@ class _LoginPageState extends State<LoginPage> {
 
                                     if (user != null) {
                                       _errorText = "";
-                                      print(user);
 
                                       // user bilgimiz var lazımsa result
                                       Navigator.pushReplacement(
@@ -136,7 +145,6 @@ class _LoginPageState extends State<LoginPage> {
                                           ));
                                     } else if (user == null) {
                                       setState(() {
-                                        print("error");
                                         _errorText = "Kullanıcı adı veya şifre geçersiz";
                                       });
                                     }
