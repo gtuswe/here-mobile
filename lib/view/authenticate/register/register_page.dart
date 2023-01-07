@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:here/model/user.dart';
 import 'package:here/service/authentication.dart';
 import 'package:here/view/authenticate/login/login_page.dart';
+import 'package:here/view/main_page.dart';
 import 'package:kartal/kartal.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -12,7 +13,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final String _errorText = "";
+  String _errorText = "";
   bool _loading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
@@ -28,6 +29,16 @@ class _RegisterPageState extends State<RegisterPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Register"),
+        actions: [
+          _loading
+              ? const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 103, 80, 164),
+                  ),
+                )
+              : const SizedBox(),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
@@ -194,14 +205,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: double.infinity,
                               height: 56,
                               child: ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState?.validate() ?? false) {
                                     _changeLoading();
 
                                     FocusManager.instance.primaryFocus?.unfocus();
 
                                     User? user;
-                                    AuthenticationService()
+                                    await AuthenticationService()
                                         .insertUser(
                                       _nameController.text,
                                       _lastNameController.text,
@@ -213,12 +224,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                       user = value;
                                     });
                                     _changeLoading();
-                                    print(user);
-                                    /*Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) => const MainPage(),
-                                        ));*/
+
+                                    if (user != null) {
+                                      _errorText = "";
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) => const MainPage(),
+                                          ));
+                                    } else if (user == null) {
+                                      setState(() {
+                                        _errorText = "Mail veya Okul numarası zaten kullanılmakta";
+                                      });
+                                    }
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -231,7 +249,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ),
-                            Text(_errorText),
+                            Text(
+                              _errorText,
+                              style: context.textTheme.bodySmall!.copyWith(color: Colors.red),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [

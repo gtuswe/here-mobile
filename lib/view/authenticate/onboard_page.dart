@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:here/view/authenticate/login/login_page.dart';
 import 'package:here/view/authenticate/register/register_page.dart';
 import 'package:kartal/kartal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardPage extends StatefulWidget {
   const OnboardPage({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class _OnboardPageState extends State<OnboardPage> {
   @override
   void initState() {
     super.initState();
+    _firstOpenDetector();
   }
 
   @override
@@ -118,5 +120,10 @@ class _OnboardPageState extends State<OnboardPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _firstOpenDetector() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool("firstOpen", true);
   }
 }

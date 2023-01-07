@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:here/view/activity/activity_page.dart';
-import 'package:here/view/authenticate/onboard_page.dart';
+import 'package:here/view/authenticate/wrapper.dart';
 import 'package:here/view/calendar/calendar_page.dart';
 import 'package:here/view/home/home_page.dart';
 import 'package:here/view/main_page.dart';
@@ -17,7 +17,7 @@ const mainURL = '/main';
 
 class Routes {
   static final routes = <String, WidgetBuilder>{
-    rootURL: (context) => const OnboardPage(),
+    rootURL: (context) => Wrapper(),
     mainURL: (context) => const MainPage(),
     homeURL: (context) => const HomePage(),
     calendarURL: (context) => const CalendarPage(),
