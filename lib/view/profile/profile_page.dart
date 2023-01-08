@@ -32,7 +32,12 @@ class _ProfilePageState extends State<ProfilePage> {
         }
         // Check list data
         if (!snapshot.hasData) {
-          return const Text("Profile information not found.");
+          return Center(
+              child: TextButton(
+                  onPressed: () {
+                    _logout(context);
+                  },
+                  child: const Text("Profile information not found.")));
         }
 
         // Build list
@@ -72,7 +77,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       trailing: IconButton(
                           onPressed: () {
-                            context.navigateToPage(EditProfilePage(user: user));
+                            context.navigateToPage(EditProfilePage(
+                              user: user,
+                              parentAction: rebuildPage,
+                            ));
                           },
                           icon: const Icon(
                             Icons.edit,
@@ -98,13 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         TextButton(
                             onPressed: () async {
-                              final sharedPreferences = await SharedPreferences.getInstance();
-                              sharedPreferences.remove("accessToken");
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) => const LoginPage(),
-                                  ));
+                              await _logout(context);
                             },
                             child: const ListTile(
                               leading: Icon(Icons.logout),
@@ -175,5 +177,21 @@ class _ProfilePageState extends State<ProfilePage> {
         );
       },
     );
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove("accessToken");
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const LoginPage(),
+        ));
+  }
+
+  rebuildPage() {
+    setState(() {
+      print("REBUILD");
+    });
   }
 }
