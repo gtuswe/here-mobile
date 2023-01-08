@@ -28,7 +28,9 @@ class AuthenticationService {
         return null;
       }
 
+
       final User? user = await login(email, password);
+
       final sharedPreferences = await SharedPreferences.getInstance();
       if (sharedPreferences.getString("accessToken") != null) {
         return user;
