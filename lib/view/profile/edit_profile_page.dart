@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:here/model/user.dart';
+import 'package:here/service/authentication.dart';
 import 'package:kartal/kartal.dart';
 
 class EditProfilePage extends StatefulWidget {
   final User? user;
-  const EditProfilePage({Key? key, required this.user}) : super(key: key);
+  final Function() parentAction;
+
+  const EditProfilePage({Key? key, required this.user, required this.parentAction}) : super(key: key);
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -16,6 +19,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _mailController = TextEditingController();
   final TextEditingController _student_noController = TextEditingController();
+  final successfullSnackbar = const SnackBar(
+    content: Text('Informations successfully updated!'),
+  );
+  final errorSnackbar = const SnackBar(
+    content: Text('Informations could not be updated!'),
+  );
 
   bool _loading = false;
 
@@ -142,8 +151,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
                       _changeLoading();
-                      // request
+                      User? user;
+                      await AuthenticationService()
+                          .updateUser(
+                        _nameController.text,
+                        _surnameController.text,
+                        _student_noController.text,
+                        _mailController.text,
+                        widget.user!.id.toString(),
+                      )
+                          .then((value) {
+                        user = value;
+                      });
                       _changeLoading();
+                      if (user != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(successfullSnackbar);
+                        widget.parentAction();
+                      } else if (user == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(errorSnackbar);
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(

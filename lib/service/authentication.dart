@@ -56,6 +56,7 @@ class AuthenticationService {
       if (result["accessToken"] != null && result["role"] == "student") {
         final sharedPreferences = await SharedPreferences.getInstance();
         sharedPreferences.setString("accessToken", result["accessToken"]);
+        print(result);
         return User.fromJson(result);
       } else {
         return null;
@@ -76,7 +77,9 @@ class AuthenticationService {
       );
       Map<String, dynamic> result = jsonDecode(response.body);
 
-      if (result["id"] != null) {
+      if (result["role"] == "student") {
+        print("rol get");
+        print(result);
         return User.fromJson(result);
       } else {
         return null;
@@ -87,12 +90,32 @@ class AuthenticationService {
     }
   }
 
-  Future updateUser(String firstName, String lastName, String schoolNumber, String email, String id) async {
+  Future<User?> updateUser(String firstName, String lastName, String schoolNumber, String email, String id) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     final token = sharedPreferences.getString("accessToken");
+    Map<String, dynamic> informations = {
+      "name": firstName,
+      "surname": lastName,
+      "mail": email,
+      "student_no": schoolNumber,
+    };
 
-    try {} catch (e) {
+    try {
+      final Response response = await put(
+        Uri.parse('$baseUrl/api/student/$id'),
+        headers: {"Content-Type": 'application/json', "Authorization": "Bearer $token"},
+        body: json.encode(informations),
+      );
+      Map<String, dynamic> result = jsonDecode(response.body);
+      if (result["role"] == "student") {
+        print(result);
+        return User.fromJson(result);
+      } else {
+        return null;
+      }
+    } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 }
